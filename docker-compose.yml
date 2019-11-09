@@ -1,0 +1,12 @@
+version: '2'
+services:
+    news-list:
+        image: news-list:${IMAGE_TAG}
+        build:
+            context: ./
+            dockerfile: ./docker/news_list/Dockerfile
+    news-content:
+        image: news-content:${IMAGE_TAG}
+        build:
+            context: ./
+            dockerfile: ./docker/news_content/Dockerfile
