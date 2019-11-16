@@ -14,8 +14,8 @@ uri = os.environ.get("MONGO_URI")
 client = pymongo.MongoClient(uri)
 db = client["news"]
 
-def get_new_ids():
-    rs = db["news_list"].find({})
+def get_new_ids(start_time):
+    rs = db["news_list"].find({"published_at": {"$gte": datetime.datetime.timestamp(start_time)}})
     new_ids = [r["id"] for r in rs]
     rs = db["news_data"].find({})
     old_ids = [r["uuid"] for r in rs]
@@ -44,7 +44,8 @@ def get_content(id_list, replace=False):
 if __name__ == "__main__":
     while True:
         try:
-            id_list = get_new_ids()
+            start_time = datetime.datetime.now() - datetime.timedelta(hours=12)
+            id_list = get_new_ids(start_time)
             if id_list:
                 logger.info("Crawling {} content: {}.".format(len(id_list), ", ".join(id_list)))
                 get_content(id_list)
