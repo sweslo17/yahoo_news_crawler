@@ -39,10 +39,11 @@ def parse_htmls(page_list):
 if __name__ == "__main__":
     while True:
         try:
-            start_time = datetime.datetime.now() - datetime.timedelta(days=10)
+            start_time = datetime.datetime.now() - datetime.timedelta(days=1)
             new_pages = get_new_pages(start_time)
-            logger.info("Parse {} pages: {}.".format(len(new_pages), ", ".join([page[0] for page in new_pages])))
-            parse_htmls(new_pages)
+            if new_pages:
+                logger.info("Parse {} pages: {}.".format(len(new_pages), ", ".join([page[0] for page in new_pages])))
+                parse_htmls(new_pages)
         except:
-            logger.exception("Prawl page error.")
+            logger.exception("Parse page error.")
         time.sleep(5)
