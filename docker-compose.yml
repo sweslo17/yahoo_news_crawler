@@ -10,3 +10,8 @@ services:
         build:
             context: ./
             dockerfile: ./docker/news_content/Dockerfile
+    news-page:
+        image: news-page:${IMAGE_TAG}
+        build:
+            context: ./
+            dockerfile: ./docker/news_page/Dockerfile
