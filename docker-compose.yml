@@ -15,3 +15,8 @@ services:
         build:
             context: ./
             dockerfile: ./docker/news_page/Dockerfile
+    news-page-parse:
+        image: news-page-parse:${IMAGE_TAG}
+        build:
+            context: ./
+            dockerfile: ./docker/news_page_parse/Dockerfile
