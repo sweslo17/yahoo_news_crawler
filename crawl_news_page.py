@@ -29,8 +29,13 @@ def get_pages(url_list, replace=False):
     base_url = "https://tw.news.yahoo.com{}"
 
     for url, id, published_at in url_list:
-        response = requests.request("GET", base_url.format(url))
-        response.raise_for_status()
+        try:
+            response = requests.request("GET", base_url.format(url))
+            response.raise_for_status()
+        except:
+            logger.exception("Crawl page {} error.".format(url))
+            time.sleep(random.randint(1,3))
+            continue
         if response:
             db["news_page_raw"].insert_one({
                 "id": id,
