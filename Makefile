@@ -19,3 +19,6 @@ down:
 
 run:
 	$(BUILD_DOCKER) up -d
+
+log:
+	$(BUILD_DOCKER) logs -f --tail 100
